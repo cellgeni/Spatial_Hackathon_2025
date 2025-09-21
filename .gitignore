@@ -1,0 +1,19 @@
+# Python ignores
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+.env
+*.venv
+.venv
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+# Nextflow ignores
+*.nextflow.log
+.nextflow/
+work/
