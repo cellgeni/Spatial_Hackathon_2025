@@ -20,7 +20,7 @@ This repo collects small CLI tools produced during the hackathon. The core expec
 
 ## Repository layout
 
-```
+```bash
 ├── bin/ # CLI entrypoints (bash/python), executable
 │ ├── curate-spatial
 │ ├── submit-bia
