@@ -1,0 +1,62 @@
+nextflow_process {
+
+    name "Test Process CELLS2VISIUM"
+    script "../main.nf"
+    process "CELLS2VISIUM"
+
+    tag "modules"
+    tag "modules_sangercellgeni"
+    tag "cells2visium"
+
+    test("homosapiens - image") {
+        when {
+            process {
+                """
+                
+                input[0] = [
+                    [ id:'test' ], // meta map
+                    file("${moduleDir}/tests/data/CytAssist_11mm_FFPE_Human_Glioblastoma_image.tif", checkIfExists: true),
+                    file("${moduleDir}/tests/data/outs", type: 'dir', checkIfExists: true),
+                    'sample1'
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("homosapiens - image - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+                    [ id:'test' ], // meta map
+                    file("${moduleDir}/tests/data/CytAssist_11mm_FFPE_Human_Glioblastoma_image.tif", checkIfExists: true),
+                    file("${moduleDir}/tests/data/outs", type: 'dir', checkIfExists: true),
+                    'sample1'
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

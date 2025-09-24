@@ -1,0 +1,74 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
+name: "cells2visium"
+description: segmenting H&E images from Visium to assign each visium spot to the number of cell, occupancy and other morphological features of cells 
+keywords:
+  - segmentation
+  - spatial
+  - imaging
+tools:
+  - "cells2visium":
+      description: "segmenting H&E images from Visium to assign each visium spot to the number of cell, occupancy and other morphological features of cells "
+      homepage: "https://github.com/cellgeni/cells2visium"
+      documentation: "https://github.com/cellgeni/cells2visium"
+      tool_dev_url: "https://github.com/cellgeni/cells2visium"
+      licence: ["MIT"]
+      identifier: biotools:cells2visium
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. `[ id:'sample1' ]`
+    - image:
+        type: file
+        description: Input image
+        pattern: "*.{tif,tiff}"
+        ontologies:
+          - edam: "http://edamontology.org/format_3591" # TIFF
+    - spaceranger:
+        type: directory
+        description: Spaceranger /outs/
+        pattern: "*/"
+    - sample:
+        type: string
+        description: Sample name
+        pattern: "*"
+
+output:
+  json:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'sample1' ]`
+      - "*.json":
+          type: file
+          description: JSON file
+          pattern: "*.{json}"
+          ontologies:
+            - edam: "http://edamontology.org/format_3464" # JSON
+  image:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'sample1' ]`
+      - "*.tif":
+          type: file
+          description: Normalised image
+          pattern: "*.{tif,tiff}"
+          ontologies:
+            - edam: "http://edamontology.org/format_3591" # TIFF
+  versions:
+    - "versions.yml":
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+        ontologies:
+          - edam: "http://edamontology.org/format_3750" # YAML
+
+authors:
+  - "@camlloyd"
+maintainers:
+  - "@camlloyd"
